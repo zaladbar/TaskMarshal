@@ -1,0 +1,14 @@
+{
+  "name": "productivity-boss",
+  "version": "0.1.0",
+  "description": "An autonomous productivity boss app (Electron + Python) with personas and real-time feedback.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^25.0.0"
+  }
+}

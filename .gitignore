@@ -1,0 +1,7 @@
+node_modules/
+config.json
+backend/data/prefs.json
+backend/data/logs.json
+__pycache__/
+*.pyc
+repomix-output.xml
