@@ -6,31 +6,36 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Consent Modal -->
+  <!-- Consent Modal (unchanged) -->
   <div id="consent-modal" class="modal hidden">
     <div class="modal-content">
-      <h2>Data & Privacy Consent</h2>
-      <p>
-        This app will monitor your computer usage and send a summary of your day's activity 
-        (total work vs distraction time and your goals) to an AI (OpenAI) to generate personalized feedback.
-        No detailed browsing data or content is sent, only high-level statistics. All raw data remains on your device.
-        Do you consent to proceed?
-      </p>
+      <h2>Data &amp; Privacy Consent</h2>
+      <p>This app monitors your activity and sends only summary stats to OpenAI for feedback.</p>
       <button id="consent-accept">I Agree</button>
     </div>
   </div>
 
-  <!-- Setup (Startup) Section -->
+  <!-- Settings Modal (NEW) -->
+  <div id="settings-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Settings</h2>
+      <label for="api-key-input">OpenAI&nbsp;API&nbsp;Key</label><br>
+      <input id="api-key-input" type="password" placeholder="sk-..." /><br>
+      <button id="save-key-btn">Save</button>
+    </div>
+  </div>
+
+  <!-- Setup Section -->
   <div id="setup-section">
-    <h1>Good Morning!</h1>
-    <p>Enter your main goals for today:</p>
-    <textarea id="goals-input" placeholder="My goals for today..."></textarea>
-    <p>Select your boss persona:</p>
+    <h1>Good&nbsp;Morning!</h1>
+    <p>Your goals for today:</p>
+    <textarea id="goals-input" placeholder="My goals..."></textarea>
+    <p>Choose your boss persona:</p>
     <select id="persona-select"></select>
     <button id="start-btn">Start Day</button>
   </div>
 
-  <!-- Main Tracking Section (visible after start) -->
+  <!-- Main Tracking Section -->
   <div id="main-section" class="hidden">
     <h2 id="persona-name"></h2>
     <p id="goal-display"></p>
@@ -39,15 +44,13 @@
       <span id="distract-time">Distractions: 0m</span>
       <span id="idle-time">Idle: 0m</span>
     </div>
-    <div id="message-box">
-      <p id="persona-message">Let's have a productive day!</p>
-    </div>
+    <div id="message-box"><p id="persona-message">Let's be productive!</p></div>
     <button id="end-btn">End Day</button>
   </div>
 
-  <!-- End-of-Day Report Section -->
+  <!-- End-of-Day Report -->
   <div id="report-section" class="hidden">
-    <h2>End of Day Report</h2>
+    <h2>End&nbsp;of&nbsp;Day Report</h2>
     <div id="summary-stats"></div>
     <div id="report-message"></div>
     <button id="close-btn">Close</button>

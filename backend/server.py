@@ -1,20 +1,38 @@
 import os
+import sys
 import json
 import random
 import requests
 from datetime import datetime, timezone
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from openai import OpenAI          # ← NEW import
+from openai import OpenAI
 
-# ---------- Load persona profiles ----------
-base_dir = os.path.abspath(os.path.dirname(__file__))
-personas_file = os.path.join(base_dir, 'personas.json')
+# ---------------------------------------------------------------------
+# helpers ──────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------
+def resource_path(rel_path: str) -> str:
+    """
+    Return absolute path to a bundled resource (works for PyInstaller and dev).
+    """
+    if getattr(sys, 'frozen', False):          # running from a PyInstaller bundle
+        base = sys._MEIPASS                   # type: ignore[attr-defined]
+    else:                                      # running from source
+        base = os.path.abspath(os.path.dirname(__file__))
+    return os.path.join(base, rel_path)
+
+# ---------------------------------------------------------------------
+# load persona profiles
+# ---------------------------------------------------------------------
+personas_file = resource_path('personas.json')
 with open(personas_file, 'r', encoding='utf-8') as f:
     personas = json.load(f)
 
-# ---------- Ensure data directories ----------
-data_dir = os.path.join(base_dir, 'data')
+# ---------------------------------------------------------------------
+# directories & persistent files
+# ---------------------------------------------------------------------
+base_dir  = os.path.abspath(os.path.dirname(__file__))
+data_dir  = os.path.join(base_dir, 'data')
 os.makedirs(data_dir, exist_ok=True)
 
 prefs_file = os.path.join(data_dir, 'prefs.json')
@@ -43,7 +61,9 @@ else:
     with open(logs_file, 'w') as f:
         json.dump(logs, f)
 
-# ---------- OpenAI setup ----------
+# ---------------------------------------------------------------------
+# OpenAI setup
+# ---------------------------------------------------------------------
 openai_api_key = None
 config_path = os.path.join(base_dir, '..', 'config.json')
 if os.path.exists(config_path):
@@ -60,7 +80,6 @@ if not openai_model and 'config' in locals():
 if not openai_model:
     openai_model = 'gpt-4.1-nano-2025-04-14'
 
-# Instantiate modern client (or None if key missing)
 client = None
 if not openai_api_key:
     openai_api_key = os.getenv('OPENAI_API_KEY')
@@ -73,14 +92,16 @@ if openai_api_key:
 
 openai_available = client is not None
 
-# ---------- Misc constants ----------
+# ---------------------------------------------------------------------
+# misc constants
+# ---------------------------------------------------------------------
 distract_keywords = [
     "youtube", "facebook", "twitter", "reddit", "instagram",
     "tiktok", "netflix", "discord", "steam", "game"
 ]
 
 app = Flask(__name__)
-CORS(app)  # allow Electron
+CORS(app)
 
 day_state = None  # global session state
 

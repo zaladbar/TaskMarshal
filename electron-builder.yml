@@ -1,0 +1,14 @@
+appId: com.yourcompany.productivityboss
+files:
+  - "!backend/**"
+extraFiles:
+  - from: backend/dist/server${ext}
+    to: server${ext}
+asarUnpack:
+  - server${ext}
+linux:
+  target: AppImage
+mac:
+  target: dmg
+win:
+  target: nsis

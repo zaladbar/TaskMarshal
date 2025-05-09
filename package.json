@@ -1,14 +1,22 @@
 {
   "name": "productivity-boss",
-  "version": "0.1.0",
-  "description": "An autonomous productivity boss app (Electron + Python) with personas and real-time feedback.",
+  "version": "0.2.0",
+  "description": "An autonomous productivity boss (Electron + Python) with secure key storage.",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "dev": "concurrently \"npm:python\" \"electron .\"",
+    "python": "python backend/server.py",
+    "build": "electron-builder"
   },
   "author": "Your Name",
   "license": "MIT",
+  "dependencies": {
+    "keytar": "^7.9.0"
+  },
   "devDependencies": {
-    "electron": "^25.0.0"
+    "electron": "^29.0.0",
+    "electron-builder": "^24.12.0",
+    "wait-on": "^8.0.3"
   }
 }

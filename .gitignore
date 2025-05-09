@@ -5,3 +5,5 @@ backend/data/logs.json
 __pycache__/
 *.pyc
 repomix-output.xml
+backend/build/
+backend/dist/
