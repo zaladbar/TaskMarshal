@@ -1,3 +1,4 @@
 {
-    "openai_api_key": "sk-YOUR_OPENAI_API_KEY"
+  "openai_api_key": "sk-YOUR_OPENAI_API_KEY",
+  "model": "gpt-4.1-nano-2025-04-14"
 }
